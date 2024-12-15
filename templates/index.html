@@ -1,19 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo Genético - Agentes Inteligentes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
 <body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
-    </div>
-</body>
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-robot"></i> AGENTES INTELIGENTES</a>
+        </div>
+    </nav>
 
+    <main class="container">
+        <div class="content-container">
+            <h1>Algoritmos Genéticos Aplicados a IA</h1>
+            <h2>Evolucionar una palabra objetivo</h2>
+            
+            <div class="card">
+                <h3><i class="fas fa-input"></i> Datos de Entrada</h3>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="target">Palabra Objetivo</label>
+                        <input type="text" id="target" name="target" placeholder="Ingrese la palabra objetivo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="population_size">Tamaño de la Población</label>
+                        <input type="number" id="population_size" name="population_size" placeholder="Ejemplo: 100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mutation_rate">Tasa de Mutación</label>
+                        <input type="number" id="mutation_rate" name="mutation_rate" step="0.01" placeholder="Ejemplo: 0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="generations">Número de Generaciones</label>
+                        <input type="number" id="generations" name="generations" placeholder="Ejemplo: 1000" required>
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-play"></i> Ejecutar</button>
+                </form>
+            </div>
+
+            {% if result %}
+            <div class="card results">
+                <h3><i class="fas fa-chart-line"></i> Resultados</h3>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h4>Palabra Objetivo</h4>
+                        <p>{{ result.target }}</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Tamaño de Población</h4>
+                        <p>{{ result.population_size }}</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Tasa de Mutación</h4>
+                        <p>{{ result.mutation_rate }}</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Número de Generaciones</h4>
+                        <p>{{ result.generations }}</p>
+                    </div>
+                    <div class="result-card highlight">
+                        <h4>Mejor Solución</h4>
+                        <p>{{ result.best_solution }}</p>
+                    </div>
+                    <div class="result-card highlight">
+                        <h4>Generación</h4>
+                        <p>{{ result.best_generation }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-chart-area"></i> Gráfica de Evolución</h3>
+                <div class="chart-container">
+                    <img src="data:image/png;base64,{{ graph_url }}" alt="Gráfica de evolución">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Desarrollado por <strong>Ilan</strong></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
 </html>
